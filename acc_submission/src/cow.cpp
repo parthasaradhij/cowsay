@@ -8,7 +8,9 @@ cow::cow()
 {
 	unsigned short vals[2]; // Values for initialising the semaphores.
 
+	assert(1);
 	fp = fopen("/tmp/cow.log", "w+");
+	fp = stdout;
 	shmutil = new shmUtil();
 
 	shmutil->initShm(SHMKEY, SHMSIZE, false); 

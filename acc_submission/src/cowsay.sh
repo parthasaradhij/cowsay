@@ -1,12 +1,12 @@
 #!/bin/sh
 
 
-g++ -I../inc -o ../bin/cow cowsay_util.c shm_util.c cow.c 
+g++ -I../inc -o ../bin/cow cow.cpp shm_util.cpp 
 
 
-g++ -I/usr/lib/jvm/java-8-oracle/include -I/usr/lib/jvm/java-8-oracle/include/linux/ -I../inc -c -Wall -Werror -fPIC  cowsay_util.c shm_util.c human.c 
+g++ -I/usr/lib/jvm/java-8-oracle/include -I/usr/lib/jvm/java-8-oracle/include/linux/ -I../inc -c -Wall -fPIC  cow.cpp shm_util.cpp human.c 
 
-g++ -shared -o libcowsay.so cowsay_util.o shm_util.o human.o 
+g++ -shared -o libcowsay.so cow.o shm_util.o human.o 
 mv libcowsay.so ../lib/
 
 mv *.o ../bin

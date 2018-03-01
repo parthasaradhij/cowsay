@@ -21,6 +21,7 @@ int hci_init()
 {
 	shmutil = new shmUtil();
 	shmutil->initShm(SHMKEY, SHMSIZE, true); 
+	buf = shmutil->getBuf();
 
 	vals[HUMAN] = 0;
 	vals[COW] = 0;
@@ -89,21 +90,21 @@ JNIEXPORT jobjectArray JNICALL Java_com_andium_cowsay_hci_CowSayConverter_conver
 	return ret;
 }
 
-/*
-int main()
-{
 
-	humanFunc();
-	return 0;
-}
-*/
 // The function below is only meant for UT
 void input(char *buf)
 {
 	int ind = rand()%4;	
         strcpy(buf, input_arr[ind]);
 }
-
+void printCowsay(char output[][PRINTROWSIZE])
+{
+   int i = 0;
+   for(i=0; i< ROWS; i++)
+   {
+     printf("%s", output[i]);
+   }
+}
 // The function below is only meant for UT
 int humanFunc()
 {
@@ -115,7 +116,15 @@ int humanFunc()
 		//semUnLock(semId,mySem);
 		shmutil->semUnLock(semId,yourSem);
 		shmutil->semLock(semId, mySem);
-		//printCowSay((char (*)[PRINTROWSIZE])buf+80);
+		printCowsay((char (*)[PRINTROWSIZE])buf+80);
 	}
 
 }
+/*
+int main()
+{
+
+	humanFunc();
+	return 0;
+}
+*/
